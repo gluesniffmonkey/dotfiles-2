@@ -1,0 +1,3 @@
+--italic-text always
+--map-syntax '*.{re,rei}:JavaScript (Babel)'
+--tabs 2

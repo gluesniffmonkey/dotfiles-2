@@ -1,0 +1,14 @@
+# deny root
+/*
+# allow dotfiles
+!/.*
+# deny bad dotfiles
+.DS_Store
+/.CFUserTextEncoding
+/.npmrc
+/.yarnrc
+# and dot folders
+/.*/*
+# allow configs
+!/.config/install.star/
+# git add --force the rest
