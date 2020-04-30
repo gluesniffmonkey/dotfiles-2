@@ -55,12 +55,18 @@ alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 # Doom Emacs
 export PATH=$PATH:~/.emacs.d/bin
 
+# Editor
+export ALTERNATE_EDITOR=""
+export EDITOR="emacsclient -t"                  # $EDITOR opens in terminal
+export VISUAL="emacsclient -c -a emacs"         # $VISUAL opens in GUI mode
+
 # Postgres
 export PGHOST=localhost
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 echo '(( ! ${+functions[p10k]} )) || p10k finalize' >>! ~/.zshrc
+(( ! ${+functions[p10k]} )) || p10k finalize
 (( ! ${+functions[p10k]} )) || p10k finalize
 (( ! ${+functions[p10k]} )) || p10k finalize
 (( ! ${+functions[p10k]} )) || p10k finalize

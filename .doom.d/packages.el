@@ -47,3 +47,4 @@
 ;(package! builtin-package :recipe (:branch "develop"))
 (package! org-roam
   :recipe (:host github :repo "jethrokuan/org-roam" :branch "develop"))
+(package! prettier-js)

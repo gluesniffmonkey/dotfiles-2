@@ -112,3 +112,7 @@
   (map! :map org-mode-map
         :n "M-j" #'org-metadown
         :n "M-k" #'orge-metaup))
+
+(add-hook!
+  js2-mode 'prettier-js-mode
+  (add-hook 'before-save-hook #'refmt-before-save nil t))
