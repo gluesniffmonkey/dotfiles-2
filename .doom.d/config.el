@@ -51,6 +51,7 @@
 ;;
 ;; You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
 ;; they are implemented.
+(require 'company-org-roam)
 (use-package! org-roam
   :commands (org-roam-insert org-roam-find-file org-roam-switch-to-buffer org-roam)
   :init
@@ -88,6 +89,12 @@
            :unnarrowed t)))
   (org-roam-mode +1))
 
+(use-package company-org-roam
+  :when (featurep! :completion company)
+  :after org-roam
+  :config
+  (set-company-backend! 'org-mode '(company-org-roam company-yasnippet company-dabbrev)))
+
 (use-package deft
   :after org
   :bind
@@ -116,3 +123,6 @@
 (add-hook!
   js2-mode 'prettier-js-mode
   (add-hook 'before-save-hook #'refmt-before-save nil t))
+
+;; Vue
+(add-hook 'vue-mode-hook #'lsp!)

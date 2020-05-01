@@ -48,3 +48,6 @@
 (package! org-roam
   :recipe (:host github :repo "jethrokuan/org-roam" :branch "develop"))
 (package! prettier-js)
+(package! company-org-roam
+  :recipe (:host github :repo "jethrokuan/company-org-roam"))
+(package! vue-mode)
