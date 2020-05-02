@@ -52,12 +52,25 @@
 ;; You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
 ;; they are implemented.
 (require 'company-org-roam)
-(use-package! org-roam
-  :commands (org-roam-insert org-roam-find-file org-roam-switch-to-buffer org-roam)
-  :init
-  (setq org-roam-directory "~/Desktop/03-resources/org-roam")
+(setq org-roam-directory "~/Desktop/03-resources/org-roam")
+
+(use-package company-org-roam
+  :when (featurep! :completion company)
+  :after org-roam
+  :config
+  (set-company-backend! 'org-mode '(company-org-roam company-yasnippet company-dabbrev)))
+
+(after! org-roam
   (setq org-roam-graph-viewer "/usr/bin/open")
-  (map! :leader
+  (require 'org-roam-protocol)
+  (setq org-roam-ref-capture-templates
+        '(("r" "ref" plain (function org-roam-capture--get-point)
+           "%?"
+           :file-name "websites/${slug}"
+           :head "#+TITLE: ${title}
+- source :: ${ref}"
+           :unnarrowed t)))
+    (map! :leader
         :prefix "n"
         :desc "org-roam" "l" #'org-roam
         :desc "org-roam-insert" "i" #'org-roam-insert
@@ -65,35 +78,7 @@
         :desc "org-roam-find-file" "f" #'org-roam-find-file
         :desc "org-roam-show-graph" "g" #'org-roam-show-graph
         :desc "org-roam-insert" "i" #'org-roam-insert
-        :desc "org-roam-capture" "c" #'org-roam-capture)
-  :config
-  (require 'org-roam-protocol)
-  (setq org-roam-capture-templates
-        '(("d" "default" plain (function org-roam--capture-get-point)
-           "%?"
-           :file-name "${slug}"
-           :head "#+TITLE: ${title}\n"
-           :unnarrowed t)
-          ("p" "private" plain (function org-roam-capture--get-point)
-           "%?"
-           :file-name "private-${slug}"
-           :head "#+TITLE: ${title}\n"
-           :unnarrowed t)))
-  (setq org-roam-ref-capture-templates
-        '(("r" "ref" plain (function org-roam-capture--get-point)
-           "%?"
-           :file-name "websites/${slug}"
-           :head "#+ROAM_KEY: ${ref}
-#+TITLE: ${title}
-- source :: ${ref}"
-           :unnarrowed t)))
-  (org-roam-mode +1))
-
-(use-package company-org-roam
-  :when (featurep! :completion company)
-  :after org-roam
-  :config
-  (set-company-backend! 'org-mode '(company-org-roam company-yasnippet company-dabbrev)))
+        :desc "org-roam-capture" "c" #'org-roam-capture))
 
 (use-package deft
   :after org
