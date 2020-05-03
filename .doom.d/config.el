@@ -53,7 +53,6 @@
 ;; they are implemented.
 (require 'company-org-roam)
 (setq org-roam-directory "~/Desktop/03-resources/org-roam")
-
 (use-package company-org-roam
   :when (featurep! :completion company)
   :after org-roam
@@ -68,7 +67,14 @@
            "%?"
            :file-name "websites/${slug}"
            :head "#+TITLE: ${title}
+#+ROAM_KEY: ${ref}
 - source :: ${ref}"
+           :unnarrowed t)))
+  (setq org-roam-capture-templates
+        '(("d" "default" plain (function org-roam--capture-get-point)
+           "%?"
+           :file-name "${slug}"
+           :head "#+TITLE: ${title}\n"
            :unnarrowed t)))
     (map! :leader
         :prefix "n"
