@@ -24,7 +24,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one-light)
+(setq doom-theme 'doom-one)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -93,6 +93,15 @@
   (map! :map org-mode-map
         :n "M-j" #'org-metadown
         :n "M-k" #'orge-metaup))
+
+;; Interactive Org Roam Server Graph
+(require 'simple-httpd)
+(setq httpd-root "/var/www")
+(httpd-start)
+
+(use-package org-roam-server
+  :ensure nil
+  :load-path "~/Desktop/01-projects/org-roam-server")
 
 ;; Transclude lines from one file to another
 (defun org-dblock-write:transclusion (params)
