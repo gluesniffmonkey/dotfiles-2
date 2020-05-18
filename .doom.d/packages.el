@@ -47,3 +47,4 @@
 ;(package! builtin-package :recipe (:branch "develop"))
 (package! prettier-js)
 (package! vue-mode)
+(package! org-ref)
