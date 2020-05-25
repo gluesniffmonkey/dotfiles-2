@@ -24,7 +24,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one)
+(setq doom-theme 'doom-wilmersdorf)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -77,6 +77,7 @@
            :head "#+TITLE: ${title}\n"
            :unnarrowed t))))
 
+
 (use-package org-roam-bibtex
   :after (org-roam)
   :hook (org-roam-mode . org-roam-bibtex-mode)
@@ -111,6 +112,15 @@
    )
   )
 
+(use-package org-pdftools
+  :hook (org-load . org-pdftools-setup-link))
+
+(use-package org-noter-pdftools
+  :after org-noter
+  :config
+  (with-eval-after-load 'pdf-annot
+    (add-hook 'pdf-annot-activate-handler-functions #'org-noter-pdftools-jump-to-note)))
+
 ;; Helm Bibtex
 (setq
  bibtex-completion-notes-path org_notes
@@ -140,7 +150,7 @@
          org-ref-completion-library 'org-ref-ivy-cite
          org-ref-get-pdf-filename-function 'org-ref-get-pdf-filename-helm-bibtex
          org-ref-default-bibliography (list zot_bib)
-         org-ref-bibliography-notes (concat org_notes "/bibnotes.org")
+         org-ref-bibliography-notes org_notes
          org-ref-note-title-format "* TODO %y - %t\n :PROPERTIES:\n  :Custom_ID: %k\n  :NOTER_DOCUMENT: %F\n :ROAM_KEY: cite:%k\n  :AUTHOR: %9a\n  :JOURNAL: %j\n  :YEAR: %y\n  :VOLUME: %v\n  :PAGES: %p\n  :DOI: %D\n  :URL: %U\n :END:\n\n"
          org-ref-notes-directory org_notes
          org-ref-notes-function 'orb-edit-notes
@@ -156,12 +166,13 @@
   (deft-use-filter-string-for-filename t)
   (deft-default-extension "org")
   (deft-auto-save-interval -1.0)
-  (deft-directory "~/Desktop/03-resources/org-roam/"))
+  (deft-directory org_notes))
 
 (use-package org-journal
   :bind
   ("C-c n j" . org-journal-new-entry)
   :custom
+  (org-journal-dir org_notes)
   (org-journal-date-prefix "#+TITLE: ")
   (org-journal-file-format "%Y-%m-%d.org")
   (org-journal-date-format "%A, %d %B %Y"))
@@ -172,14 +183,30 @@
         :n "M-j" #'org-metadown
         :n "M-k" #'orge-metaup))
 
-;; Interactive Org Roam Server Graph
-(require 'simple-httpd)
-(setq httpd-root "/var/www")
-(httpd-start)
-
 (use-package org-roam-server
-  :ensure nil
-  :load-path "~/Desktop/01-projects/org-roam-server")
+    :ensure t)
+
+(add-hook 'org-roam-server-mode (lambda () (browse-url-chrome "http://localhost:8080")))
+
+;; Refile a heading to another buffer
+;; Allows you to refile into different files - specifically to
+;; create new 'parent' headings
+(setq org-refile-use-outline-path 'file)
+;; makes org-refile outline working with helm/ivy
+(setq org-outline-path-complete-in-steps nil)
+(setq org-refile-allow-creating-parent-nodes 'confirm)
+(defun +org/opened-buffer-files ()
+  "Return the list of files currently opened in emacs"
+  (delq nil
+        (mapcar (lambda (x)
+                  (if (and (buffer-file-name x)
+                           (string-match "\\.org$"
+                                         (buffer-file-name x)))
+                      (buffer-file-name x)))
+                (buffer-list))))
+
+(setq org-refile-targets '((+org/opened-buffer-files :maxlevel . 9)))
+;;
 
 ;; Transclude lines from one file to another
 (defun org-dblock-write:transclusion (params)
