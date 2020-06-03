@@ -15,7 +15,7 @@
 (doom! :input
        ;;chinese
        ;;japanese
-
+       spellcheck
        :completion
        company          ; the ultimate code completion backend
        ;;helm              ; the *other* search engine for love and life
@@ -135,7 +135,8 @@
        ;;nim               ; python + lisp at the speed of c
        ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
-       (org +roam)              ; organize your plain life in plain text
+       (org +attach
+            +roam)              ; organize your plain life in plain text
        ;;perl              ; write code no one else can comprehend
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
@@ -154,6 +155,7 @@
        ;;solidity          ; do you need a blockchain? No.
        ;;swift             ; who asked for emoji variables?
        ;;terra             ; Earth and Moon in alignment for performance.
+       typsript
        ;;web               ; the tubes
        yaml              ; JSON, but readable
 
