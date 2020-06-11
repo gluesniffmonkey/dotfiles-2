@@ -30,3 +30,7 @@
 (load! "+javascript")
 (load! "+ui")
 (load! "+org")
+
+
+(use-package org-pomodoro
+  :ensure t)
