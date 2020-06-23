@@ -60,15 +60,15 @@
         '(("r" "ref" plain (function org-roam-capture--get-point)
            "%?"
            :file-name "websites/${slug}"
-           :head "#+TITLE: ${title}
-#+ROAM_KEY: ${ref}
+           :head "#+title: ${title}
+#+roam_key: ${ref}
 - source :: ${ref}"
            :unnarrowed t)))
   (setq org-roam-capture-templates
         '(("d" "default" plain (function org-roam--capture-get-point)
            "%?"
            :file-name "${slug}"
-           :head "#+TITLE: ${title}\n"
+           :head "#+title: ${title}\n"
            :unnarrowed t))))
 
 
@@ -112,8 +112,11 @@
   (with-eval-after-load 'pdf-annot
     (add-hook 'pdf-annot-activate-handler-functions #'org-noter-pdftools-jump-to-note)))
 
+(sp-with-modes '(org-mode)
+  (sp-local-pair "*" "*")
+  (sp-local-pair "=" "="))
 
-;; ;; Helm Bibtex
+;; Helm Bibtex
 ;; (setq
 ;;  bibtex-completion-notes-path org_notes
 ;;  bibtex-completion-bibliography zot_bib
@@ -165,7 +168,7 @@
   ("C-c n j" . org-journal-new-entry)
   :custom
   (org-journal-dir org_notes)
-  (org-journal-date-prefix "#+TITLE: ")
+  (org-journal-date-prefix "#+title: ")
   (org-journal-file-format "%Y-%m-%d.org")
   (org-journal-date-format "%A, %d %B %Y"))
 (setq org-journal-enable-agenda-integration t)
