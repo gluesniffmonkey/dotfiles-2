@@ -49,4 +49,6 @@
 (package! vue-mode)
 (package! org-ref)
 (package! org-pomodoro)
-(package! mixed-pitch)
+(package! tao-theme)
+(package! io-mode-inf)
+(package! io-mode)
