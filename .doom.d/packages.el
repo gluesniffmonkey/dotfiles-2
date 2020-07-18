@@ -52,3 +52,10 @@
 (package! tao-theme)
 (package! io-mode-inf)
 (package! io-mode)
+(package! ob-prolog)
+(package! night-owl-theme)
+(package! ob-ammonite)
+(unpin! org-roam
+        org-roam-server
+        company-org-roam)
+(package! annotate)

@@ -51,6 +51,7 @@ alias batfind="fzf --preview '$FZF_PREVIEW_COMMAND {} | head -500'"
 alias fd=$aliases[fd]
 alias tree="ls --tree $(sed 's/.*/-I=\\"&\\"/' ~/.config/fd/ignore | xargs)"
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+alias commithisotry='git for-each-ref --sort=-committerdate refs/heads/'
 
 # Doom Emacs
 export PATH=$PATH:~/.emacs.d/bin

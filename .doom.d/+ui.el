@@ -11,7 +11,7 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "Victor Mono" :size 14))
+(setq doom-font (font-spec :family "Iosevka" :size 14))
 
 ;; (use-package mixed-pitch
 ;;   :hook
@@ -22,7 +22,7 @@
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
 ;; light theme: white
-(setq doom-theme 'doom-palenight)
+(setq doom-theme 'doom-challenger-deep)
 
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
